@@ -3,9 +3,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Button from "./button/Button";
 import { Menu } from "@mui/icons-material";
-import styled from "@emotion/styled";
-
-
+import { Link as ScrollLink } from "react-scroll";
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -20,21 +18,18 @@ const Navbar = () => {
           display: {
             xs: "none",
             sm: "none",
-            md: "flex"
-
+            md: "flex",
           },
-          justifyContent: 'space-between',
+          justifyContent: "space-between",
           background: "#7ED7C1",
           width: "100%",
-          padding: "5px"
-          
+          padding: "15px",
         }}
       >
-        <Box sx={{marginLeft: "20px"}}>
-        <Link to={"/"} style={{textDecoration: "none", color: "black"}}>
-          <Typography variant="h3">REMED</Typography>
+        <Box sx={{ marginLeft: "20px" }}>
+          <Link to={"/"} style={{ textDecoration: "none", color: "black" }}>
+            <Typography variant="h3">REMED</Typography>
           </Link>
-          
         </Box>
         <Box
           sx={{
@@ -70,7 +65,7 @@ const Navbar = () => {
             </Typography>
           </Link>
           <Link
-            to={"/"}
+            to={"/medicine"}
             style={{
               textDecoration: "none",
               color: "black",
@@ -89,7 +84,7 @@ const Navbar = () => {
             </Typography>
           </Link>
           <Link
-            to={"/"}
+            to={"/division"}
             style={{
               textDecoration: "none",
               color: "black",
@@ -107,15 +102,7 @@ const Navbar = () => {
               Division
             </Typography>
           </Link>
-          <Link
-            to={"/"}
-            style={{
-              textDecoration: "none",
-              color: "black",
-              textAlign: "center",
-              padding: "3px",
-            }}
-          >
+          <ScrollLink to="about" smooth={true} duration={500} style={{cursor: "pointer"}}>
             <Typography
               sx={{
                 fontSize: "18px",
@@ -125,16 +112,8 @@ const Navbar = () => {
             >
               About Us
             </Typography>
-          </Link>
-          <Link
-            to={"/"}
-            style={{
-              textDecoration: "none",
-              color: "black",
-              textAlign: "center",
-              padding: "3px",
-            }}
-          >
+          </ScrollLink>
+          <ScrollLink to="contact" smooth={true} duration={500} style={{cursor: "pointer"}}>
             <Typography
               sx={{
                 fontSize: "18px",
@@ -144,26 +123,20 @@ const Navbar = () => {
             >
               Contact Us
             </Typography>
-          </Link>
+          </ScrollLink>
         </Box>
-        <Link to={"/login"} style={{textDecoration: "none", color: "white"}}>
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            marginRight: "10px",
-          }}
-        >
-          <Button Value={"Login"} />
-        </Box>
+        <Link to={"/login"} style={{ textDecoration: "none", color: "white" }}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              marginRight: "10px",
+            }}
+          >
+            <Button Value={"Login"} />
+          </Box>
         </Link>
-        
       </Box>
-
-
-
-
-
 
       {/*---------------------- For small device ------------------------*/}
 
@@ -198,112 +171,113 @@ const Navbar = () => {
         >
           <Menu fontWeight="bold" />
         </Box>
-        <Box sx={{margin: "2px auto 2px auto"}}>
-        <Link to={"/"} style={{textDecoration: "none", color: "black"}}>
-          <Typography variant="h3">REMED</Typography>
+        <Box sx={{ margin: "2px auto 2px auto" }}>
+          <Link to={"/"} style={{ textDecoration: "none", color: "black" }}>
+            <Typography variant="h3">REMED</Typography>
           </Link>
         </Box>
 
         <Drawer open={mobileOpen} onClose={handleDrawerToggle}>
-          <Box sx={{ padding: "10px",marginLeft: "5px" ,marginRight: "5px"}}>
-          <Link
-            to={"/"}
-            style={{
-              textDecoration: "none",
-              color: "black",
-              textAlign: "center",
-              padding: "3px",
-              
-
-            }}
-          >
-            <Typography
-              sx={{
-                fontSize: "18px",
-                whiteSpace: "nowrap",
-                 ":hover": { color: "white" },
-               
+          <Box sx={{ padding: "10px", marginLeft: "5px", marginRight: "5px" }}>
+            <Link
+              to={"/"}
+              style={{
+                textDecoration: "none",
+                color: "black",
+                textAlign: "center",
+                padding: "3px",
               }}
             >
-              Home
-            </Typography>
-          </Link>
-          <Link
-            to={"/"}
-            style={{
-              textDecoration: "none",
-              color: "black",
-              textAlign: "center",
-              padding: "3px",
-            }}
-          >
-            <Typography
-              sx={{
-                fontSize: "18px",
-                whiteSpace: "nowrap",
-                ":hover": { color: "white" },
+              <Typography
+                sx={{
+                  fontSize: "18px",
+                  whiteSpace: "nowrap",
+                  ":hover": { color: "white" },
+                }}
+              >
+                Home
+              </Typography>
+            </Link>
+            <Link
+              to={"/medicine"}
+              style={{
+                textDecoration: "none",
+                color: "black",
+                textAlign: "center",
+                padding: "3px",
               }}
             >
-              Medicine
-            </Typography>
-          </Link>
-          <Link
-            to={"/"}
-            style={{
-              textDecoration: "none",
-              color: "black",
-              textAlign: "center",
-              padding: "3px",
-            }}
-          >
-            <Typography
-              sx={{
-                fontSize: "18px",
-                whiteSpace: "nowrap",
-                ":hover": { color: "white" },
+              <Typography
+                sx={{
+                  fontSize: "18px",
+                  whiteSpace: "nowrap",
+                  ":hover": { color: "white" },
+                }}
+              >
+                Medicine
+              </Typography>
+            </Link>
+            <Link
+              to={"/division"}
+              style={{
+                textDecoration: "none",
+                color: "black",
+                textAlign: "center",
+                padding: "3px",
               }}
             >
-              Division
-            </Typography>
-          </Link>
-          <Link
-            to={"/"}
-            style={{
-              textDecoration: "none",
-              color: "black",
-              textAlign: "center",
-              padding: "3px",
-            }}
-          >
-            <Typography
-              sx={{
-                fontSize: "18px",
-                whiteSpace: "nowrap",
-                ":hover": { color: "white" },
+              <Typography
+                sx={{
+                  fontSize: "18px",
+                  whiteSpace: "nowrap",
+                  ":hover": { color: "white" },
+                }}
+              >
+                Division
+              </Typography>
+            </Link>
+            <ScrollLink
+              to="about"
+              smooth={true} duration={500}
+              style={{
+                textDecoration: "none",
+                color: "black",
+                textAlign: "center",
+                padding: "3px",
+                cursor: "pointer",
               }}
             >
-              About Us
-            </Typography>
-          </Link>
-          <Link
-            to={"/"}
-            style={{
-              textDecoration: "none",
-              color: "black",
-              textAlign: "center",
-              padding: "3px",
-            }}
-          >
-            <Typography
-              sx={{
-                fontSize: "18px",
-                whiteSpace: "nowrap",
-                ":hover": { color: "white" },
+              <Typography
+                sx={{
+                  fontSize: "18px",
+                  whiteSpace: "nowrap",
+                  ":hover": { color: "white" },
+                }}
+              >
+                About Us
+              </Typography>
+            </ScrollLink>
+            <ScrollLink
+            smooth={true} duration={500}
+              to="contact"
+              style={{
+                textDecoration: "none",
+                color: "black",
+                textAlign: "center",
+                padding: "3px",
+                cursor: "pointer"
               }}
             >
-              Contact Us
-            </Typography>
-          </Link>
+              <Typography
+                sx={{
+                  fontSize: "18px",
+                  whiteSpace: "nowrap",
+                  ":hover": { color: "white" },
+                }}
+              >
+                Contact Us
+              </Typography>
+            </ScrollLink>
           </Box>
         </Drawer>
       </Box>

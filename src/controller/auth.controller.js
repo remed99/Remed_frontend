@@ -14,7 +14,16 @@ class Auth extends Request{
                 throw error;
             }
         }
+    getUser = async (token)=>{
+        try{
+            const reponse = await this.getRequest('auth/user/'+token);
+            return reponse;
+        }catch (error) {
+            throw error;
+        }
     }
+    }
+
 const auth = new Auth();
 export default auth;
 

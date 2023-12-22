@@ -3,9 +3,10 @@ import "./style.css"
 
 const Loader = () => {
   return (
-    <Box sx={{height: "90vh"}}>
-    <div class="spinner"></div>
-    </Box>
+    
+    
+    <div className="spinner"></div>
+    
 
   )
 }

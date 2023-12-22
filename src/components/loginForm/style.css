@@ -50,7 +50,7 @@
     font-weight: 500;
     width: 100%;
     border-radius: 0.5rem;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
   }
   
   .signup-link {

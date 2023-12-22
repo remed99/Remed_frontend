@@ -1,15 +1,19 @@
 import React from 'react'
 import "./style.css"
 import { Box } from '@mui/material'
-// import { login} from '../../controller/auth.controller'
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import auth from '../../controller/auth.controller';
+import { useUserContext } from '../../context/userContext';
+import { useNavigate } from 'react-router-dom';
 
 
 const LoginForm = () => {
+  const {state, dispatch} = useUserContext();
+  const navigate = useNavigate();
+  // console.log(state)
 
   const loginSchema = Yup.object({
     email: Yup.string().email("Please enter a valid email address!!").required(),
@@ -22,8 +26,12 @@ const {register, handleSubmit, formState: {errors}} = useForm({
   const handleLogin = async(data) => {
     try {
       const response = await auth.login(data);
-      toast.success(response.data.msg);
-      console.log(response.data.msg);
+      localStorage.setItem("AccessToken", response.data.data.AccessToken);
+      dispatch({type: 'login', payload: response.data.data});
+      // console.log(state);
+      toast.success(response?.data?.msg);
+      navigate('/admin')
+      
 
     } catch (error) {
       toast.error(error?.response.data.msg);
@@ -31,6 +39,7 @@ const {register, handleSubmit, formState: {errors}} = useForm({
     }
   }
   return (
+    <>
    <Box sx={{marginBottom: "50px", height: '50vh'}}>
     <form className="form" onSubmit={handleSubmit(handleLogin)}>
        <p className="form-title">Sign in to your account</p>
@@ -52,8 +61,10 @@ const {register, handleSubmit, formState: {errors}} = useForm({
 
    
    </form>
+   
    </Box>
-
+  
+   </>
   )
 }
 
