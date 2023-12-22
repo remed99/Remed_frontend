@@ -26,15 +26,15 @@ const {register, handleSubmit, formState: {errors}} = useForm({
   const handleLogin = async(data) => {
     try {
       const response = await auth.login(data);
-      localStorage.setItem("AccessToken", response.data.data.AccessToken);
-      dispatch({type: 'login', payload: response.data.data});
+      localStorage.setItem("AccessToken", response?.data?.data.AccessToken);
+      dispatch({type: 'login', payload: response?.data?.data});
       // console.log(state);
       toast.success(response?.data?.msg);
       navigate('/admin')
       
 
     } catch (error) {
-      toast.error(error?.response.data.msg);
+      toast.error(error?.response?.data?.msg);
       console.log(error);
     }
   }
