@@ -120,6 +120,7 @@ const MedicinePage = () => {
                     display: "flex",
                     alignItems: "center",
                     flexDirection: "column",
+                    margin: "20px auto 20px auto"
                   }}
                 >
                   <Typography variant="h4" sx={{ textAlign: "center" }}>
