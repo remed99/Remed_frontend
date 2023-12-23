@@ -1,4 +1,10 @@
-import { Box, Grid, OutlinedInput, Typography, Button as MButton } from "@mui/material";
+import {
+  Box,
+  Grid,
+  OutlinedInput,
+  Typography,
+  Button as MButton,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import Button from "../components/button/Button";
 import Search from "../asset/search.png";
@@ -6,7 +12,6 @@ import SearchSvc from "../controller/search.controller";
 import Loader from "../components/loader/Loader";
 import MedicineCard from "../components/medicineCard/MedicineCard";
 import { useNavigate } from "react-router-dom";
-
 
 const MedicinePage = () => {
   const [textVisible, setTextVisible] = useState(true);
@@ -21,7 +26,6 @@ const MedicinePage = () => {
       const response = await SearchSvc.getMedicine(query);
       // console.log(response);
       setResult(response?.data?.data);
-      
     } catch (error) {
       console.log(error);
     } finally {
@@ -31,7 +35,6 @@ const MedicinePage = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-  
 
   return (
     <>
@@ -111,49 +114,56 @@ const MedicinePage = () => {
                   <Loader />
                 </Box>
               ) : !result ? (
-                <Box sx={{ height: "50vh", display: "flex", alignItems: "center", flexDirection: "column" }}>
+                <Box
+                  sx={{
+                    height: "50vh",
+                    display: "flex",
+                    alignItems: "center",
+                    flexDirection: "column",
+                  }}
+                >
                   <Typography variant="h4" sx={{ textAlign: "center" }}>
                     No result found for: {query}
                   </Typography>
                   <MButton
                     variant="contained"
-                    
                     sx={{ margin: "10px auto 10px auto" }}
                     onClick={() => {
-                    location.reload();
+                      location.reload();
                     }}
                   >
                     Go Back
                   </MButton>
                 </Box>
               ) : (
-                <>
+                <Box sx={{display: 'flex', flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
                   <Typography
                     variant="h5"
-                    sx={{ margin: "20px", width: "100%" }}
+                    sx={{ margin: "20px",}}
                   >
                     Results For: {query}
                   </Typography>
-                  {result?.map((item) => {
+                 <Grid container spacing={5} sx={{width: "100%", margin: "10px auto 10px auto"}}>
+                 {result?.map((item) => {
                     return (
-                      <Grid item xs={12} sm={12} md={6} lg={4}>
+                      <Grid item xs={12} sm={12} md={6} lg={4} >
                         <MedicineCard item={item.item} />
                       </Grid>
                     );
                   })}
-                </>
-              )}
-            </Grid>
-            <MButton
+                 </Grid>
+                  <MButton
                     variant="contained"
-                    
-                    sx={{ margin: "10px auto 10px auto" }}
+                    sx={{ margin: "20px auto 10px auto" }}
                     onClick={() => {
-                    location.reload();
+                      location.reload();
                     }}
                   >
                     Go Back
                   </MButton>
+                </Box>
+              )}
+            </Grid>
           </Box>
         )}
       </>
