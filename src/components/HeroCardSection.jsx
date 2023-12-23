@@ -1,6 +1,6 @@
 import React from "react";
 import HeroCard from "./heroCard/HeroCard";
-import { Box, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import Medicine from "../asset/medicine.png";
 import Division from "../asset/agent.png";
 import { Link } from "react-router-dom";

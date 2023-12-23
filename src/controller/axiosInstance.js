@@ -1,6 +1,5 @@
 import axios from "axios";
 
-import { toast } from "react-toastify";
 
 
 const axiosInstance = axios.create({
@@ -11,18 +10,6 @@ const axiosInstance = axios.create({
     }
 });
 
-axiosInstance.interceptors.response.use(
-(response)=>{
-return response;
-},
 
-(reject)=>{
-if(reject.response.status == 401){
-    localStorage.clear();
-    window.location.href = '/login';
 
-    toast.error("Please login...");
-}
-})
-
-export default axiosInstance
+export default axiosInstance;

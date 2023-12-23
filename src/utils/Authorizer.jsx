@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import authSvc from "../controller/auth.controller";
 import { useUserContext } from "../context/userContext";
 import { Box } from "@mui/material";
@@ -30,6 +29,9 @@ const {dispatch, state} = useUserContext();
       
     } catch (error) {
       console.log(error);
+      localStorage.clear();
+      navigate("/login");
+      
     }finally{
       setLoading(false);
     }
@@ -48,11 +50,11 @@ const {isVerified} = state;
 
  if(token){
   getUserOn(token);
- }else{
+ }
+ if(!token){
+  navigate('/login');
   setLoading(false);
-  navigate("/login");
-  toast.error("Login first...")
-}
+ }
 
   }, []);
 
@@ -65,9 +67,6 @@ if(loading) {
 if(!loading){
   if(isVerified) {
     return component;
-  }else{
-    navigate("/");
-    toast.error("Please login first...");
   }
 }
 

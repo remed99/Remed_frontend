@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "./style.css"
 import { Box } from '@mui/material'
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
   const {state, dispatch} = useUserContext();
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   // console.log(state)
 
@@ -25,17 +26,22 @@ const {register, handleSubmit, formState: {errors}} = useForm({
 });
   const handleLogin = async(data) => {
     try {
+      setLoading(true);
       const response = await auth.login(data);
       localStorage.setItem("AccessToken", response?.data?.data.AccessToken);
       dispatch({type: 'login', payload: response?.data?.data});
-      // console.log(state);
+    
       toast.success(response?.data?.msg);
       navigate('/admin')
       
 
     } catch (error) {
+      // console.error(error);
       toast.error(error?.response?.data?.msg);
-      console.log(error);
+      // console.log(error);
+    }
+    finally{
+      setLoading(false);
     }
   }
   return (
@@ -56,7 +62,9 @@ const {register, handleSubmit, formState: {errors}} = useForm({
 
         </div>
          <button type="submit" className="submit">
-        Sign in
+       {
+        !loading ? "Sign in" : "Loading......"
+       }
       </button>
 
    
