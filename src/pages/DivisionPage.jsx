@@ -14,6 +14,7 @@ const DivisionPage = () => {
   const [loading, setLoading] = useState(false);
   const [company, setCompany] = useState();
   const [result, setResult] = useState();
+  
 
   const searchSchema = Yup.object({
     companyName: Yup.string().required(),
@@ -40,11 +41,14 @@ const DivisionPage = () => {
 
   const divisionHandler = async (data) => {
     try {
-      setLoading(true);
-      const response = await DivisionSvc.getAllDivision(data);
-      // console.log(response);
-
-      setResult(response?.data?.data);
+      if(data){
+        setTextvisible(false);
+        setLoading(true);
+        const response = await DivisionSvc.getAllDivision(data);
+        // console.log(response);
+  
+        setResult(response?.data?.data);
+      }
     } catch (error) {
       setResult();
       toast.error(error.response?.data?.msg);
@@ -144,9 +148,7 @@ const DivisionPage = () => {
                   type="submit"
                   variant="contained"
                   sx={{ width: "100%" }}
-                  onClick={() => {
-                    setTextvisible(false);
-                  }}
+                 
                 >
                   Search
                 </Button>

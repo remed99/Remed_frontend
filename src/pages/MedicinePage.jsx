@@ -22,10 +22,12 @@ const MedicinePage = () => {
 
   const handleSearch = async (query) => {
     try {
-      setLoading(true);
+      if(query){
+        setLoading(true);
       const response = await SearchSvc.getMedicine(query);
       // console.log(response);
       setResult(response?.data?.data);
+      }
     } catch (error) {
       console.log(error);
     } finally {
@@ -64,8 +66,10 @@ const MedicinePage = () => {
               />
               <Box
                 onClick={() => {
-                  setTextVisible(false);
+                  if(query){
+                    setTextVisible(false);
                   handleSearch(query);
+                  }
                 }}
               >
                 <Button Value={"Search"} />
