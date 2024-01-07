@@ -113,7 +113,7 @@ const MedicinePage = () => {
           <Box sx={{ width: "90%", margin: "18px" }}>
             <Grid container spacing={4}>
               {loading ? (
-                <Box sx={{ height: "50vh" }}>
+                <Box sx={{ height: "50vh", margin: "30px auto 30px auto" }}>
                   {" "}
                   <Loader />
                 </Box>

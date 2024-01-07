@@ -1,4 +1,4 @@
-import { Label } from "@mui/icons-material";
+
 import { Box, Button, Grid, Select, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -14,7 +14,9 @@ const DivisionPage = () => {
   const [loading, setLoading] = useState(false);
   const [company, setCompany] = useState();
   const [result, setResult] = useState();
-  
+  const [divLoading, setDivLoading] = useState(false);
+  const [division, setDivision] = useState();
+  const [area, setArea] = useState();
 
   const searchSchema = Yup.object({
     companyName: Yup.string().required(),
@@ -28,6 +30,36 @@ const DivisionPage = () => {
   } = useForm({
     resolver: yupResolver(searchSchema),
   });
+
+  // --------------------------functions--------------------------
+  const getDivision = async(e)=>{
+    
+    
+  try {
+    setDivision();
+    setDivLoading(true);
+    const response = await DivisionSvc.getAllDivision({companyName: e.target.value});
+    setDivision(response?.data?.data)
+    
+  } catch (error) {
+    
+  }finally {
+    setDivLoading(false);
+  }
+    
+  }
+
+  const getArea = (e)=>{
+    
+    setArea();
+    const areas = division.find(value =>{
+      if(value.divisionName === e.target.value){
+        return value
+      }
+    });
+   
+    setArea(areas.areaInfo);
+  }
 
   const getAllCompanies = async () => {
     try {
@@ -97,8 +129,11 @@ const DivisionPage = () => {
                 <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
                   <label htmlFor="companyName">Company Name:</label>
                   <select
+                    
                     style={{ padding: "5px" }}
                     {...register("companyName")}
+                    onChange={getDivision}
+                    
                   >
                     <option value="">Select Company Name</option>
                     {company?.map((item) => {
@@ -113,8 +148,8 @@ const DivisionPage = () => {
               </Grid>
               <Grid item xs={12} sm={12} md={4}>
                 <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                  <label htmlFor="divsionName">Division Name:</label>
-                  <input
+                  <label htmlFor="divisionName">Division Name:</label>
+                  {/* <input
                     type="text"
                     placeholder="Enter Division Name.."
                     style={{
@@ -123,14 +158,26 @@ const DivisionPage = () => {
                       fontFamily: "roboto",
                     }}
                     {...register("divisionName")}
-                  />
+                  /> */}
+                  <select name="divisionName" id="divisionName" style={{ padding: "5px" }}  {...register("divisionName")} onChange={getArea}>
+                    <option value="">Select Division Name</option>
+                    
+                    {divLoading && <option value="">Loading...</option>}
+                    {!division ? <option value="">No Division Info</option> : (
+                      division?.map(item =>{
+                        return(
+                          <option key={item._id} value={item.divisionName}>{item.divisionName}</option>
+                        )
+                      })
+                    )}
+                  </select>
                 </Box>
               </Grid>
 
               <Grid item xs={12} sm={12} md={4}>
                 <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
                   <label htmlFor="divsionName">Area Name:</label>
-                  <input
+                  {/* <input
                     type="text"
                     placeholder="Enter Division Name.."
                     style={{
@@ -139,7 +186,18 @@ const DivisionPage = () => {
                       fontFamily: "roboto",
                     }}
                     {...register("areaName")}
-                  />
+                  /> */}
+                  <select name="areaName" id="areaName" style={{ padding: "5px" }} {...register("areaName")}>
+                    <option value="">Select Area Name</option>
+                    {divLoading && <option value="">Loading....</option>}
+                    {!area ? <option value="">No area info</option> : (
+                      area?.map(item=>{
+                      return(
+                        <option key={item._id} value={item.areaName}>{item.areaName}</option>
+                      )
+                      })
+                    )}
+                  </select>
                 </Box>
               </Grid>
 
